@@ -18,7 +18,7 @@ def predict_image(image_path):
     except (OSError, IOError):
         print(f'error corrupted image at {image_path}')
         return
-    model = keras.models.load_model('image_classifier.h5')
+    model = keras.models.load_model('path to trained model')
     img = cv2.imread(image_path)
 
     if img is None:
@@ -42,4 +42,5 @@ def predict_image(image_path):
     plt.axis('off')
     plt.show()
 
-predict_image('datasets/monkeys/download.jpg')
+
+predict_image('path to image')
