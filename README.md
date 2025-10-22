@@ -4,4 +4,6 @@
 
 **uses tensorflow, keras, matplotlib, cv2, os, sys and PIL**
 
-**for custom image recognition, add or delete a folder in the datasets folder and add ~40 images to the new folder and make sure to name it correctly**
+**to train a new model, add a datasets folder and stack folders inside that folder with the name of the thing you want to be recognized**
+
+**and to test a model, change the path in the bottom to the file you want to be recognized**
