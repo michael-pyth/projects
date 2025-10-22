@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import tensorflow as tf
 import cv2, os, keras
 
-DATASET_PATH = 'datasets/'
+DATASET_PATH = 'path to your dataset' #add your dataset path
 num_classes = len(os.listdir(DATASET_PATH))
 class_mode = 'binary' if num_classes == 2 else 'categorical'
 
@@ -18,7 +18,7 @@ def predict_image(image_path):
     except (OSError, IOError):
         print(f'error corrupted image at {image_path}')
         return
-    model = keras.models.load_model('path to trained model')
+    model = keras.models.load_model('path to trained model') #add your path to the model
     img = cv2.imread(image_path)
 
     if img is None:
@@ -44,3 +44,4 @@ def predict_image(image_path):
 
 
 predict_image('path to image')
+
