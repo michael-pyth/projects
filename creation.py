@@ -3,8 +3,8 @@ from keras.models import Sequential, load_model
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, Input, BatchNormalization
 import os, sys
 
-DATASET_PATH = 'datasets/'
-MODEL_PATH = 'image_classifier.h5'
+DATASET_PATH = 'path to datasets' #add the path to the dataset
+MODEL_PATH = 'path to model' #add your path to the model
 
 num_classes = len(os.listdir(DATASET_PATH))
 class_mode = "binary" if num_classes == 2 else "categorical"
@@ -25,15 +25,15 @@ val_datagen = ImageDataGenerator(
 train_data = train_datagen.flow_from_directory(
     DATASET_PATH,
     target_size=(128, 128),
-    batch_size=32,
+    batch_size=32, #change depending on amount of images/folder
     class_mode=class_mode,
     subset='training',
-    shuffle=True)  # ensure shuffle
+    shuffle=True)
 
 val_data = val_datagen.flow_from_directory(
     DATASET_PATH,
     target_size=(128, 128),
-    batch_size=32,
+    batch_size=32, #change depending on amount of images/folder
     class_mode=class_mode,
     subset='validation',
     shuffle=False)
@@ -55,9 +55,9 @@ elif new_old == 'y':
         Conv2D(128, (3, 3), activation='relu', padding='same'),
         BatchNormalization(),
         MaxPooling2D(2, 2),
-        Flatten(),
-        Dense(128, activation='relu'),
-        Dropout(0.4),
+        Flatten(), #add more layers if needed
+        Dense(128, activation='relu'), #increase dense for more neurons
+        Dropout(0.4), #this is to prevent overfitting
         Dense(1, activation='sigmoid') if class_mode == "binary"
             else Dense(num_classes, activation='softmax')
     ])
@@ -67,8 +67,9 @@ else:
 
 loss_function = 'binary_crossentropy' if class_mode == 'binary' else 'categorical_crossentropy'
 model.compile(optimizer='adam', loss=loss_function, metrics=['accuracy'])
-model.fit(train_data, validation_data=val_data, epochs=10)
+model.fit(train_data, validation_data=val_data, epochs=10) #edit epochs to liking (epochs are how many times it repeats training)
 
 test_loss, test_accuracy = model.evaluate(val_data)
 print(f'accuracy: {test_accuracy:.2f}')
-model.save('image_classifier.h5')
+
+model.save('model name') #change model name to whatever you want, recommended file type is .h5 for the testing
